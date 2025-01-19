@@ -1,5 +1,6 @@
 package project.board.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import project.board.dto.BoardDTO;
 import project.board.service.BoardService;
 
+import java.net.http.HttpHeaders;
 import java.util.List;
 
 @Controller
@@ -40,10 +42,34 @@ public class BoardController {
         /**
          * 해당 게시글의 조회를 하나 올리고
          * 게시글 데이터를 가져와서 detail.html에 출력
+         * 새로고침시 조회수가 증가하지 않는 코드 추가하기 (예정)
          */
+        String sessionKey = "viewedBoard_" + id;
+
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
         return "detail";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("boardUpdate", boardDTO);
+        return "update";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
+        BoardDTO board = boardService.update(boardDTO);
+        model.addAttribute("board", board);
+        return "detail";
+//        return "redirect:/board/" + boardDTO.getId();
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        boardService.delete(id);
+        return "redirect:/board/";
     }
 }
