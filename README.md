@@ -17,3 +17,6 @@
    - 제목, 내용 수정 입력 받아서 서버로 요청
    - 수정 처리
 5. 글삭제(/board/delete/{id})
+6. 페이징처(/board/paging)
+   - /board/paging?page=2 -> 해당 주소체계로 진행
+   - /board/paging/2
