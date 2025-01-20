@@ -20,3 +20,13 @@
 6. 페이징처리(/board/paging)
    - /board/paging?page=2 -> 해당 주소체계로 진행
    - /board/paging/2
+7. 파일(이미지)첨부하기 
+   - 단일 파일 첨부
+   - 다중 파일 첨부
+   - 파일 첨부와 관련하여 추가될 부분들 
+     - save.html
+     - BoardDTO
+     - BoardService.save()
+     - BoardEntity
+     - BoardFileEntity, BoardFileRepository 추가
+     - detail.html
