@@ -61,4 +61,15 @@ public class BoardEntity extends BaseEntity { // BoardEntity가 BaseEntity를 �
         boardEntity.setBoardHits(boardDTO.getBoardHits());
         return boardEntity;
     }
+
+    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+        boardEntity.setBoardPass(boardDTO.getBoardPass());
+        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+        boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setBoardHits(0);
+        boardEntity.setFileAttached(1); // 파일 없음
+        return boardEntity;
+    }
 }
