@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import project.board.dto.BoardDTO;
 import project.board.service.BoardService;
 
+import java.io.IOException;
 import java.net.http.HttpHeaders;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute BoardDTO boardDTO) {
+    public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "index";
