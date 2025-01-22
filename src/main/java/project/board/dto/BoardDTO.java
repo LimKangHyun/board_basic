@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project.board.entity.BoardEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 // DTO(Data Transfer Object), VO, Bean
 @Getter
@@ -45,6 +46,19 @@ public class BoardDTO {
         boardDTO.setBoardHits(boardEntity.getBoardHits());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getUpdatedTime());
+
+        if(boardEntity.getFileAttached() == 0) {
+            boardDTO.setFileAttached(boardEntity.getFileAttached());
+        } else {
+            boardDTO.setFileAttached(boardEntity.getFileAttached());
+            // 파일 이름을 가져가야 함.
+            // originalFileName, storedFileName : board_file_table(BoardFileEntity)
+            // join
+            // select * from board_table b, board_file_table bf where b.id=bf.board_id
+            // and where b.id=?
+            boardDTO.setOriginalFileName(boardEntity.getBoardFileEntityList().get(0).getOriginalFileName());
+            boardDTO.setStoredFileName(boardEntity.getBoardFileEntityList().get(0).getStoredFileName());
+        }
         return boardDTO;
     }
 }

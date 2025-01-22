@@ -49,8 +49,8 @@ public class BoardService {
              */
             MultipartFile boardFile = boardDTO.getBoardFile(); // 1.
             String originalFilename = boardFile.getOriginalFilename(); // 2.
-            String storedFileName = System.currentTimeMillis() + " " + originalFilename; // 3. + uuid도 사용가능
-            String savePath = "Users/limkanghyun/springboot_img" + storedFileName; // 4. 로컬 경로 지정
+            String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3. + uuid도 사용가능
+            String savePath = "/Users/limkanghyun/springboot_img/" + storedFileName; // 4. 로컬 경로 지정
             boardFile.transferTo(new File(savePath)); // 5. 파일 로컬에 저장
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO); // 6.
             Long saveId = boardRepository.save(boardEntity).getId();
@@ -78,6 +78,7 @@ public class BoardService {
         boardRepository.updateHits(id);
     }
 
+    @Transactional
     public BoardDTO findById(Long id) {
         Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
         if (optionalBoardEntity.isPresent()) {
