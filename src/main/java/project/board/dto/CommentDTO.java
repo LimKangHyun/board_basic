@@ -15,14 +15,14 @@ public class CommentDTO {
     private String commentWriter;
     private String commentContents;
     private Long boardId;
-    private LocalDateTime commentSavedTime;
+    private LocalDateTime commentCreatedTime;
 
     public static CommentDTO toCommentDTO(CommentEntity commentEntity, Long boardId) {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setId(commentEntity.getId());
         commentDTO.setCommentWriter(commentEntity.getCommentWriter());
         commentDTO.setCommentContents(commentEntity.getCommentContents());
-        commentDTO.setCommentSavedTime(commentEntity.getCreatedTime());
+        commentDTO.setCommentCreatedTime(commentEntity.getCreatedTime());
 //        commentDTO.setBoardId(commentEntity.getBoardEntity().getId()); Service 메서드에 @Transactional 필요
         commentDTO.setBoardId(boardId);
         return commentDTO;
