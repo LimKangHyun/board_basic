@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import project.board.entity.BoardEntity;
 
-public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
+public interface BoardRepository extends JpaRepository<BoardEntity, Long> {// Long은 기본 키 타입
 
     // update board_table set board_hits=board_hits+1 where id=?
     @Modifying

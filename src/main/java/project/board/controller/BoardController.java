@@ -1,5 +1,6 @@
 package project.board.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,12 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.board.dto.BoardDTO;
 import project.board.dto.CommentDTO;
+import project.board.dto.MemberDTO;
 import project.board.service.BoardService;
 import project.board.service.CommentService;
 
 import java.io.IOException;
 import java.net.http.HttpHeaders;
 import java.util.List;
+
+import static project.board.session.SessionConst.LOGIN_MEMBER;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,7 +34,10 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
+    public String save(@ModelAttribute BoardDTO boardDTO, HttpServletRequest request) throws IOException {
+        HttpSession session = request.getSession(false);
+        MemberDTO loginUser = (MemberDTO) session.getAttribute(LOGIN_MEMBER);
+        boardDTO.setBoardWriter(loginUser.getName());
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "index";
